@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import Head from "next/head";
 import { auth } from "../../../../utils/firebase";
 import router, { useRouter } from "next/router";
@@ -9,29 +9,8 @@ import isEmpty from "@/utils/is-empty";
 import { alertService } from "@/utils";
 import { Alert } from "@/components";
 
-interface State {
-questions: any[];
-    currentQuestion: any;
-    nextQuestion: any;
-    prevQuestion: any;
-    answer: any;
-    numOfQuestions: number;
-    numOfAnsweredQuestions: number;
-    currentQuestionIdx: number;
-    score: number;
-    correctAnswers: number;
-    wrongAnswers: number;
-    hints: number;
-    tossUp: number;
-    usedTossUp: boolean;
-    time: any;
-    prevRandNumbers: any[];
-    nextBtnDisabled: boolean;
-    prevBtnDisabled: boolean;
-    user: any;
-}
 
-class Play extends React.Component<{}, State> {
+class Play extends Component {
     state = {
         questions,
         currentQuestion: {},
@@ -104,7 +83,7 @@ class Play extends React.Component<{}, State> {
     }
   };
 
-  handleOptionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  handleOptionClick = (e) => {
     if (e.currentTarget.innerHTML === this.state.answer) {
       this.correctAnswer();
     } else {
@@ -213,7 +192,7 @@ class Play extends React.Component<{}, State> {
     const options = document.querySelectorAll(".option");
 
     options.forEach((option) => {
-      const styledOption = option as HTMLElement;
+      const styledOption = option;
       styledOption.style.visibility = "visible";
     });
 
@@ -259,7 +238,7 @@ class Play extends React.Component<{}, State> {
   handleTossUpClick = () => {
     if (this.state.tossUp > 0 && this.state.usedTossUp == false) {
       const options = document.querySelectorAll(".option");
-      const randomNumbers: (number | undefined)[] = [];
+      const randomNumbers = [];
       //const randomNumbers = [];
       let indexOfAnswer;
 
